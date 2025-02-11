@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 
 import java.util.*;
 
-class RegisterBookRequestTest extends ApiTest {
+class RegisterBookServiceRequestTest extends ApiTest {
 
     @Autowired
     private BookRepository bookRepository;
