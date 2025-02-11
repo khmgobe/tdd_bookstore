@@ -1,13 +1,25 @@
 package com.gyobongbookstore.feat;
 
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
-import java.util.Set;
+import java.util.*;
 
 class RegisterBookRequestTest {
 
+
+    private BookRepository bookRepository;
+
+    private RegisterBook registerBook;
+
+    @BeforeEach
+    public void setData() {
+        bookRepository = new BookRepository();
+        registerBook = new RegisterBook(bookRepository);
+    }
 
     @Test
     @DisplayName("신규 도서를 생성한다.")
@@ -18,8 +30,12 @@ class RegisterBookRequestTest {
         final String title = "title";
         final Set<Category> categories = Set.of(Category.HUMANITIES, Category.ECONOMICSMANAGEMENT);
 
-        RegisterBookRequest registerBookRequest = new RegisterBookRequest(id, author, title, categories);
-        Book book = registerBookRequest.toDomain();
+        RegisterBookRequest request = new RegisterBookRequest(id, author, title, categories);
+
+        registerBook.register(request);
+
+        Assertions.assertThat(bookRepository.findAll()).hasSize(1);
+
     }
 
     private record RegisterBookRequest(
@@ -79,11 +95,23 @@ class RegisterBookRequestTest {
             Assert.notNull(title, "제목은 필수입니다.");
             Assert.notNull(categories, "카테고리는 필수입니다.");
         }
+
+        public void assignId(final Long id) {
+            this.id = id;
+        }
+
+        public Long getId() {
+            return id;
+        }
     }
 
     private class RegisterBook {
 
-        private BookRepository bookRepository;
+        private final BookRepository bookRepository;
+
+        private RegisterBook(final BookRepository bookRepository) {
+            this.bookRepository = bookRepository;
+        }
 
         public void register(RegisterBookRequest request) {
 
@@ -94,8 +122,18 @@ class RegisterBookRequestTest {
     }
 
     private class BookRepository {
-        public void save(Book book) {
 
+        private Map<Long, Book> books = new HashMap<>();
+        private Long sequence = 1L;
+
+        public void save(Book book) {
+            book.assignId(sequence++);
+            books.put(book.getId(), book);
+        }
+
+        public List<Book> findAll() {
+
+            return new ArrayList<>(books.values());
         }
     }
 }
