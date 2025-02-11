@@ -25,13 +25,13 @@ class RegisterBookTest {
             Long id,
             String author,
             String title,
-            Set<Category> category) {
+            Set<Category> categories) {
 
         RegisterBook {
             Assert.notNull(id, "아이디는 필수입니다.");
             Assert.notNull(author, "지은이는 필수입니다.");
             Assert.notNull(title, "제목은 필수입니다.");
-            Assert.notNull(category, "카테고리는 필수입니다.");
+            Assert.notNull(categories, "카테고리는 필수입니다.");
         }
     }
 
