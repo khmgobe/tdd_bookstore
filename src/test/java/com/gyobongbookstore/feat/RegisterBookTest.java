@@ -11,7 +11,7 @@ class RegisterBookTest {
 
     @Test
     @DisplayName("신규 도서를 생성한다.")
-    void registerBook()  {
+    void registerBook() {
 
         final Long id = 1L;
         final String author = "author";
@@ -19,6 +19,7 @@ class RegisterBookTest {
         final Set<Category> categories = Set.of(Category.HUMANITIES, Category.ECONOMICSMANAGEMENT);
 
         RegisterBook registerBook = new RegisterBook(id, author, title, categories);
+        Book book = registerBook.toDomain();
     }
 
     private record RegisterBook(
@@ -28,10 +29,13 @@ class RegisterBookTest {
             Set<Category> categories) {
 
         RegisterBook {
-            Assert.notNull(id, "아이디는 필수입니다.");
             Assert.notNull(author, "지은이는 필수입니다.");
             Assert.notNull(title, "제목은 필수입니다.");
             Assert.notNull(categories, "카테고리는 필수입니다.");
+        }
+
+        public Book toDomain() {
+            return new Book(author, title, categories);
         }
     }
 
@@ -45,6 +49,35 @@ class RegisterBookTest {
 
         Category(final String description) {
             this.description = description;
+        }
+    }
+
+    static class Book {
+
+        private Long id;
+        private final String author;
+        private final String title;
+        private final Set<Category> categories;
+
+        public Book(
+                final String author,
+                final String title,
+                final Set<Category> categories) {
+            this.author = author;
+            this.title = title;
+            this.categories = categories;
+
+            validateConstructor(author, title, categories);
+        }
+
+        private void validateConstructor(
+                final String author,
+                final String title,
+                final Set<Category> categories) {
+
+            Assert.notNull(author, "지은이는 필수입니다.");
+            Assert.notNull(title, "제목은 필수입니다.");
+            Assert.notNull(categories, "카테고리는 필수입니다.");
         }
     }
 }
