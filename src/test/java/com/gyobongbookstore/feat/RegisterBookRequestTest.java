@@ -80,4 +80,22 @@ class RegisterBookRequestTest {
             Assert.notNull(categories, "카테고리는 필수입니다.");
         }
     }
+
+    private class RegisterBook {
+
+        private BookRepository bookRepository;
+
+        public void register(RegisterBookRequest request) {
+
+            final Book book = request.toDomain();
+
+            bookRepository.save(book);
+        }
+    }
+
+    private class BookRepository {
+        public void save(Book book) {
+
+        }
+    }
 }
