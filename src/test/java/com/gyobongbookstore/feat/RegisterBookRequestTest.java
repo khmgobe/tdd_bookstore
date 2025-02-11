@@ -6,7 +6,7 @@ import org.springframework.util.Assert;
 
 import java.util.Set;
 
-class RegisterBookTest {
+class RegisterBookRequestTest {
 
 
     @Test
@@ -18,17 +18,17 @@ class RegisterBookTest {
         final String title = "title";
         final Set<Category> categories = Set.of(Category.HUMANITIES, Category.ECONOMICSMANAGEMENT);
 
-        RegisterBook registerBook = new RegisterBook(id, author, title, categories);
-        Book book = registerBook.toDomain();
+        RegisterBookRequest registerBookRequest = new RegisterBookRequest(id, author, title, categories);
+        Book book = registerBookRequest.toDomain();
     }
 
-    private record RegisterBook(
+    private record RegisterBookRequest(
             Long id,
             String author,
             String title,
             Set<Category> categories) {
 
-        RegisterBook {
+        RegisterBookRequest {
             Assert.notNull(author, "지은이는 필수입니다.");
             Assert.notNull(title, "제목은 필수입니다.");
             Assert.notNull(categories, "카테고리는 필수입니다.");
