@@ -15,18 +15,27 @@ class RegisterBookTest {
         final String author = "author";
         final String title = "title";
 
-        RegisterBook registerBook = new RegisterBook(id, author, title);
+        RegisterBook registerBook = new RegisterBook(id, author, title, Category.문학);
     }
 
     private record RegisterBook(
             Long id,
             String author,
-            String title) {
+            String title,
+            Category category) {
 
         RegisterBook {
             Assert.notNull(id, "아이디는 필수입니다.");
             Assert.notNull(author, "지은이는 필수입니다.");
             Assert.notNull(title, "제목은 필수입니다.");
+            Assert.notNull(category, "카테고리는 필수입니다.");
         }
+    }
+
+    enum Category {
+        IT,
+        문학,
+        경제경영,
+        인문학,
     }
 }
