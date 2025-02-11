@@ -22,12 +22,11 @@ class RegisterBookServiceRequestTest extends ApiTest {
     @DisplayName("신규 도서를 생성한다.")
     void registerBook() {
 
-        final Long id = 1L;
         final String author = "author";
         final String title = "title";
         final Set<Category> categories = Set.of(Category.HUMANITIES, Category.ECONOMICSMANAGEMENT);
 
-        RegisterBookRequest request = new RegisterBookRequest(id, author, title, categories);
+        RegisterBookRequest request = new RegisterBookRequest(author, title, categories);
 
         RestAssured.given().log().all()
                 .contentType(ContentType.JSON)

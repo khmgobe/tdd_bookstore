@@ -19,6 +19,9 @@ public record RegisterBookRequest(
         Set<Category> categories) {
 
     public Book toDomain() {
-        return new Book(author, title, categories);
+        return Book.builder()
+                .author(author)
+                .title(title)
+                .categories(categories).build();
     }
 }
