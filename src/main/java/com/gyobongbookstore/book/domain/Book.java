@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -49,7 +52,7 @@ public class Book {
     @Column(name = "category", nullable = false)
     @ElementCollection(targetClass = Category.class)
     @CollectionTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"))
-    private Set<Category> categories;
+    private List<Category> categories = new ArrayList<>();
 
     @Builder
     private Book(
@@ -57,7 +60,7 @@ public class Book {
             final String title,
             final BookCondition bookCondition,
             final RentalStatus rentalStatus,
-            final Set<Category> categories) {
+            final List<Category> categories) {
         this.author = author;
         this.title = title;
         this.bookCondition = bookCondition;
@@ -74,7 +77,7 @@ public class Book {
             final String title,
             final BookCondition bookCondition,
             final RentalStatus rentalStatus,
-            final Set<Category> categories) {
+            final List<Category> categories) {
         this(author, title, bookCondition, rentalStatus, categories);
         this.id = id;
     }
@@ -84,7 +87,7 @@ public class Book {
             final String title,
             final BookCondition bookCondition,
             final RentalStatus rentalStatus,
-            final Set<Category> categories) {
+            final List<Category> categories) {
 
         Assert.notNull(author, "지은이는 필수입니다.");
         Assert.notNull(title, "제목은 필수입니다.");

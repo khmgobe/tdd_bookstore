@@ -5,6 +5,8 @@ import com.gyobongbookstore.book.domain.enumeration.BookCondition;
 import com.gyobongbookstore.book.domain.enumeration.Category;
 import com.gyobongbookstore.book.domain.enumeration.RentalStatus;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 public class BookFixture {
@@ -14,7 +16,7 @@ public class BookFixture {
     private String title = "booktitle";
     private BookCondition bookCondition = BookCondition.NORMAL;
     private RentalStatus rentalStatus = RentalStatus.AVAILABLE;
-    private Set<Category> categories = Set.of(Category.HUMANITIES, Category.ECONOMICSMANAGEMENT);
+    private List<Category> categories = Arrays.asList(Category.HUMANITIES, Category.ECONOMICSMANAGEMENT);
 
     public BookFixture bookCondition(final BookCondition bookCondition) {
         this.bookCondition = bookCondition;

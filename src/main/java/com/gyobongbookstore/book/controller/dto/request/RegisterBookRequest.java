@@ -7,6 +7,7 @@ import com.gyobongbookstore.book.domain.enumeration.RentalStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Set;
 
 public record RegisterBookRequest(
@@ -24,7 +25,7 @@ public record RegisterBookRequest(
         RentalStatus rentalStatus,
 
         @NotNull(message = "카테고리는 필수입니다.")
-        Set<Category> categories) {
+        List<Category> categories) {
 
     public Book toDomain() {
         return Book.builder()

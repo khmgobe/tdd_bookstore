@@ -1,6 +1,7 @@
 package com.gyobongbookstore.common;
 
 import com.gyobongbookstore.common.api.RegisterBookApi;
+import com.gyobongbookstore.common.api.RentalBookApi;
 
 public class TestScenario {
 
@@ -10,5 +11,9 @@ public class TestScenario {
      */
     public static RegisterBookApi registerBook() {
         return new RegisterBookApi();
+    }
+
+    public static RentalBookApi rentalBook() {
+        return new RentalBookApi();
     }
 }
