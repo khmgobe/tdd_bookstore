@@ -1,5 +1,6 @@
 package com.gyobongbookstore.book.service;
 
+import com.gyobongbookstore.book.controller.dto.response.FindBooksResponse;
 import com.gyobongbookstore.book.domain.Book;
 import com.gyobongbookstore.book.domain.enumeration.Category;
 import com.gyobongbookstore.book.repository.BookRepository;
@@ -16,13 +17,14 @@ public class FindBookService {
     private final BookRepository bookRepository;
 
     @Transactional(readOnly = true)
-    public List<Book> findAllBooksByCategories(final Category category) {
+    public List<FindBooksResponse> findAllBooksByCategories(final Category category) {
 
-        return bookRepository.findByCategories(category);
+        return bookRepository.findByCategories(category).stream().map(Book::toResponse).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<Book> findByAuthorAndTitle(final String author, final String title) {
-        return bookRepository.findByAuthorAndTitle(author, title);
+    public List<FindBooksResponse> findByAuthorAndTitle(final String author, final String title) {
+
+        return bookRepository.findByAuthorAndTitle(author, title).stream().map(Book::toResponse).toList();
     }
 }

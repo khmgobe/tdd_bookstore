@@ -1,6 +1,6 @@
 package com.gyobongbookstore.book.controller;
 
-import com.gyobongbookstore.book.domain.Book;
+import com.gyobongbookstore.book.controller.dto.response.FindBooksResponse;
 import com.gyobongbookstore.book.domain.enumeration.Category;
 import com.gyobongbookstore.book.service.FindBookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,10 +37,12 @@ class FindBookController {
             }
     )
     @GetMapping("api/v1/books/category")
-    public List<Book> findAllBooksByCategory(
+    public ResponseEntity<List<FindBooksResponse>> findAllBooksByCategory(
             @Parameter(description = "도서 카테고리", required = true)
             @RequestParam Category category) {
-        return findBookService.findAllBooksByCategories(category);
+        findBookService.findAllBooksByCategories(category);
+
+        return ResponseEntity.status(HttpStatus.OK.value()).build();
     }
 
     @Operation(
@@ -55,11 +59,14 @@ class FindBookController {
             }
     )
     @GetMapping("api/v1/books/search")
-    public List<Book> findByAuthorAndTitle(
+    public ResponseEntity<List<FindBooksResponse>> findByAuthorAndTitle(
             @Parameter(description = "도서 지은이", required = true)
             @RequestParam final String author,
             @Parameter(description = "도서 제목", required = true)
             @RequestParam final String title) {
-        return findBookService.findByAuthorAndTitle(author, title);
+
+        findBookService.findByAuthorAndTitle(author, title);
+
+        return ResponseEntity.status(HttpStatus.OK.value()).build();
     }
 }

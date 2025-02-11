@@ -1,8 +1,11 @@
 package com.gyobongbookstore.book.controller;
 
+import com.gyobongbookstore.book.controller.dto.request.RegisterBookRequest;
 import com.gyobongbookstore.book.service.RentalBookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +21,20 @@ class RentalBookController {
 
     private final RentalBookService rentalBookService;
 
-    @Operation(summary = "도서 대여")
+    @Operation(
+            summary = "도서 대여",
+            description = "도서를 대여합니다.",
+
+            responses = {
+                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                            responseCode = "200",
+                            description = "도서 대여 성공",
+                            content = @Content(
+                                    mediaType = "application/json"
+                            )
+                    )
+            }
+    )
     @PatchMapping("/api/v1/books/{bookId}/rental")
     public ResponseEntity<Void> rental(
             @Parameter(description = "도서 아이디", required = true)

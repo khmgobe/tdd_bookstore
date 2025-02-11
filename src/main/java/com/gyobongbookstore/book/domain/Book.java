@@ -1,6 +1,7 @@
 package com.gyobongbookstore.book.domain;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.gyobongbookstore.book.controller.dto.response.FindBooksResponse;
 import com.gyobongbookstore.book.domain.enumeration.BookCondition;
 import com.gyobongbookstore.book.domain.enumeration.RentalStatus;
 import com.gyobongbookstore.book.domain.enumeration.Category;
@@ -55,7 +56,7 @@ public class Book {
 
     @Schema(description = "도서 카테고리 (1개 이상)", requiredMode = Schema.RequiredMode.REQUIRED, example = "LITERATURE, SCIENCE")
     @Enumerated(EnumType.STRING)
-    @Column(name = "category", nullable = false)
+    @Column(name = "categories", nullable = false)
     @ElementCollection(targetClass = Category.class)
     @CollectionTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"))
     private List<Category> categories = new ArrayList<>();
@@ -120,8 +121,19 @@ public class Book {
             throw new IllegalArgumentException("이미 대여중인 도서입니다.");
         }
 
-        if(rentalStatus == RentalStatus.UNAVAILABLE) {
+        if (rentalStatus == RentalStatus.UNAVAILABLE) {
             throw new IllegalArgumentException("대여할 수 없는 도서입니다.");
         }
+    }
+
+    public FindBooksResponse toResponse() {
+
+        return FindBooksResponse.builder()
+                .author(author)
+                .title(title)
+                .bookCondition(bookCondition)
+                .rentalStatus(rentalStatus)
+                .categories(categories)
+                .build();
     }
 }
