@@ -19,7 +19,6 @@ import java.util.List;
 
 @Schema(description = "도서 도메인 객체")
 @Entity
-@Getter
 @Table(name = "books")
 @Comment("도서 테이블")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -49,6 +48,7 @@ public class Book {
     private BookCondition bookCondition;
 
     @Schema(description = "도서 대여 가능 상태", requiredMode = Schema.RequiredMode.REQUIRED, example = "AVAILABLE")
+    @Getter
     @Column(name = "book_rental_status", nullable = false)
     @Enumerated(EnumType.STRING)
     @Comment("대여 가능 상태")

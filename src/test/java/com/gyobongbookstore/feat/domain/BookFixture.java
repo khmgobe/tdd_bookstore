@@ -7,7 +7,6 @@ import com.gyobongbookstore.book.domain.enumeration.RentalStatus;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public class BookFixture {
 

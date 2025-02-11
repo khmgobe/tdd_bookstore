@@ -1,8 +1,6 @@
 package com.gyobongbookstore.feat.api;
 
 import com.gyobongbookstore.book.domain.Book;
-import com.gyobongbookstore.book.domain.enumeration.BookCondition;
-import com.gyobongbookstore.book.domain.enumeration.Category;
 import com.gyobongbookstore.book.domain.enumeration.RentalStatus;
 import com.gyobongbookstore.book.repository.BookRepository;
 import com.gyobongbookstore.common.ApiTest;
@@ -11,8 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
