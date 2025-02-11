@@ -3,23 +3,28 @@ package com.gyobongbookstore.book.service;
 import com.gyobongbookstore.book.controller.dto.request.RegisterBookRequest;
 import com.gyobongbookstore.book.domain.Book;
 import com.gyobongbookstore.book.repository.BookRepository;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Service
+@RestController
+@RequiredArgsConstructor
 public class RegisterBook {
 
     private final BookRepository bookRepository;
 
-    public RegisterBook(final BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
-
+    @PostMapping("/api/v1/books")
     @Transactional
-    public void register(RegisterBookRequest request) {
+    public ResponseEntity<Void> register(@RequestBody RegisterBookRequest request) {
 
         final Book book = request.toDomain();
 
         bookRepository.save(book);
+
+        return ResponseEntity.status(HttpStatus.CREATED.value()).build();
     }
 }
