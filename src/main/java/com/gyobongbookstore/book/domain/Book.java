@@ -1,5 +1,7 @@
 package com.gyobongbookstore.book.domain;
 
+import com.gyobongbookstore.book.domain.enumeration.BookCondition;
+import com.gyobongbookstore.book.domain.enumeration.RentalStatus;
 import com.gyobongbookstore.book.domain.enumeration.Category;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -29,6 +31,14 @@ public class Book {
     @Column(name = "book_title", nullable = false)
     @Comment("도서 제목")
     private String title;
+
+    @Column(name = "book_condition", nullable = false)
+    @Comment("도서 상태")
+    private BookCondition bookCondition;
+
+    @Column(name = "book_rental_status", nullable = false)
+    @Comment("대여 가능 상태")
+    private RentalStatus rentalStatus;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
