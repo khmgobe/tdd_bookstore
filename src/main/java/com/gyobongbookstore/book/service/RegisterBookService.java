@@ -14,7 +14,7 @@ public class RegisterBookService {
     private final BookRepository bookRepository;
 
     @Transactional
-    public void register(RegisterBookRequest request) {
+    public void register(final RegisterBookRequest request) {
 
         final Book book = request.toDomain();
 

@@ -4,6 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.gyobongbookstore.book.domain.enumeration.BookCondition;
 import com.gyobongbookstore.book.domain.enumeration.RentalStatus;
 import com.gyobongbookstore.book.domain.enumeration.Category;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,10 +14,9 @@ import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+@Schema(description = "도서 도메인 객체")
 @Entity
 @Getter
 @Table(name = "books")
@@ -24,30 +24,36 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book {
 
+    @Schema(description = "도서 아이디")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
     @Comment("도서 아이디")
     private Long id;
 
+    @Schema(description = "도서 지은이", requiredMode = Schema.RequiredMode.REQUIRED, example = "book_author")
     @Column(name = "book_author", nullable = false)
     @Comment("도서 지은이")
     private String author;
 
+    @Schema(description = "도서 제목", requiredMode = Schema.RequiredMode.REQUIRED, example = "book_title")
     @Column(name = "book_title", nullable = false)
     @Comment("도서 제목")
     private String title;
 
+    @Schema(description = "도서 상태", requiredMode = Schema.RequiredMode.REQUIRED, example = "NORMAL")
     @Column(name = "book_condition", nullable = false)
     @Enumerated(EnumType.STRING)
     @Comment("도서 상태")
     private BookCondition bookCondition;
 
+    @Schema(description = "도서 대여 가능 상태", requiredMode = Schema.RequiredMode.REQUIRED, example = "AVAILABLE")
     @Column(name = "book_rental_status", nullable = false)
     @Enumerated(EnumType.STRING)
     @Comment("대여 가능 상태")
     private RentalStatus rentalStatus;
 
+    @Schema(description = "도서 카테고리 (1개 이상)", requiredMode = Schema.RequiredMode.REQUIRED, example = "LITERATURE, SCIENCE")
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
     @ElementCollection(targetClass = Category.class)

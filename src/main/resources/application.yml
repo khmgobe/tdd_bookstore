@@ -1,4 +1,9 @@
 spring:
+
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+
   jpa:
     hibernate:
       ddl-auto: create
