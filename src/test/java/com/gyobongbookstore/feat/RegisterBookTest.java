@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
+import java.util.Set;
+
 class RegisterBookTest {
 
 
@@ -14,15 +16,16 @@ class RegisterBookTest {
         final Long id = 1L;
         final String author = "author";
         final String title = "title";
+        final Set<Category> categories = Set.of(Category.HUMANITIES, Category.ECONOMICSMANAGEMENT);
 
-        RegisterBook registerBook = new RegisterBook(id, author, title, Category.문학);
+        RegisterBook registerBook = new RegisterBook(id, author, title, categories);
     }
 
     private record RegisterBook(
             Long id,
             String author,
             String title,
-            Category category) {
+            Set<Category> category) {
 
         RegisterBook {
             Assert.notNull(id, "아이디는 필수입니다.");
@@ -33,9 +36,15 @@ class RegisterBookTest {
     }
 
     enum Category {
-        IT,
-        문학,
-        경제경영,
-        인문학,
+        IT("IT"),
+        LITERATURE("문학"),
+        ECONOMICSMANAGEMENT("경제경영"),
+        HUMANITIES("인문학");
+
+        final String description;
+
+        Category(final String description) {
+            this.description = description;
+        }
     }
 }
