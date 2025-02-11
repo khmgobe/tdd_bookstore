@@ -10,5 +10,9 @@ class RegisterBookTest {
     @DisplayName("신규 도서를 생성한다.")
     void registerBook()  {
 
+        RegisterBook registerBook = new RegisterBook();
+    }
+
+    private static class RegisterBook {
     }
 }
