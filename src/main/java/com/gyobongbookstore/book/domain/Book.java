@@ -55,6 +55,7 @@ public class Book {
     private RentalStatus rentalStatus;
 
     @Schema(description = "도서 카테고리 (1개 이상)", requiredMode = Schema.RequiredMode.REQUIRED, example = "LITERATURE, SCIENCE")
+    @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = "categories", nullable = false)
     @ElementCollection(targetClass = Category.class, fetch = FetchType.LAZY)
@@ -119,5 +120,11 @@ public class Book {
                 .rentalStatus(rentalStatus)
                 .categories(categories)
                 .build();
+    }
+
+    public void addCategory(final Category category) {
+        if (!categories.contains(category)) {
+            categories.add(category);
+        }
     }
 }

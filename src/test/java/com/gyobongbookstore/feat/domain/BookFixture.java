@@ -10,6 +10,7 @@ import java.util.List;
 
 public class BookFixture {
 
+
     private Long bookId = 1L;
     private String author = "bookauthor";
     private String title = "booktitle";
@@ -24,6 +25,11 @@ public class BookFixture {
 
     public BookFixture rentalStatus(final RentalStatus rentalStatus) {
         this.rentalStatus = rentalStatus;
+        return this;
+    }
+
+    public BookFixture categories(final List<Category> categories) {
+        this.categories = categories;
         return this;
     }
 
