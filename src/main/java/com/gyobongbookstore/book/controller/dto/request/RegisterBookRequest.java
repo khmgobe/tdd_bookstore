@@ -26,7 +26,7 @@ public record RegisterBookRequest(
         BookCondition bookCondition,
 
         @Schema(description = "대여 가능 상태")
-        @NotNull(message = "대여 가능 상태는 필수입니다. ")
+        @NotNull(message = "대여 가능 상태는 필수입니다.")
         RentalStatus rentalStatus,
 
         @Schema(description = "카테고리")

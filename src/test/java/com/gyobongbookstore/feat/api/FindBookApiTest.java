@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +49,7 @@ class FindBookApiTest extends ApiTest {
     @DisplayName("카테고리로 도서를 검색한다.")
     void search_for_books_by_category()  {
 
-        final List<Category> bookCategories = List.of(Category.ECONOMICSMANAGEMENT, Category.HUMANITIES);
+        List<Category> bookCategories = Arrays.asList(Category.ECONOMICSMANAGEMENT, Category.HUMANITIES);
 
         TestScenario.registerBook()
                 .categories(bookCategories)

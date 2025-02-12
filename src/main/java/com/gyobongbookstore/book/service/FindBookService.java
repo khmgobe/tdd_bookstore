@@ -19,12 +19,18 @@ public class FindBookService {
     @Transactional(readOnly = true)
     public List<FindBooksResponse> findAllBooksByCategories(final Category category) {
 
-        return bookRepository.findByCategories(category).stream().map(Book::toResponse).toList();
+        return bookRepository
+                .findByCategories(category)
+                .stream()
+                .map(Book::toResponse).toList();
     }
 
     @Transactional(readOnly = true)
     public List<FindBooksResponse> findByAuthorAndTitle(final String author, final String title) {
 
-        return bookRepository.findByAuthorAndTitle(author, title).stream().map(Book::toResponse).toList();
+        return bookRepository
+                .findByAuthorAndTitle(author, title)
+                .stream()
+                .map(Book::toResponse).toList();
     }
 }

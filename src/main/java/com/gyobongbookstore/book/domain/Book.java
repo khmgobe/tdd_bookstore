@@ -57,7 +57,7 @@ public class Book {
     @Schema(description = "도서 카테고리 (1개 이상)", requiredMode = Schema.RequiredMode.REQUIRED, example = "LITERATURE, SCIENCE")
     @Enumerated(EnumType.STRING)
     @Column(name = "categories", nullable = false)
-    @ElementCollection(targetClass = Category.class)
+    @ElementCollection(targetClass = Category.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"))
     private List<Category> categories = new ArrayList<>();
 
@@ -103,27 +103,11 @@ public class Book {
         Assert.notNull(categories, "카테고리는 필수입니다.");
     }
 
-    private void validateBookCondition() {
-        if (bookCondition != BookCondition.NORMAL) {
-            rentalStatus = RentalStatus.UNAVAILABLE;
-        }
-    }
-
     public void rental() {
-        validateRentalStatus();
-        validateBookCondition();
+        rentalStatus.validateRental();
+        bookCondition.validateBookCondition();
 
         rentalStatus = RentalStatus.RENTED;
-    }
-
-    private void validateRentalStatus() {
-        if (rentalStatus == RentalStatus.RENTED) {
-            throw new IllegalArgumentException("이미 대여중인 도서입니다.");
-        }
-
-        if (rentalStatus == RentalStatus.UNAVAILABLE) {
-            throw new IllegalArgumentException("대여할 수 없는 도서입니다.");
-        }
     }
 
     public FindBooksResponse toResponse() {
